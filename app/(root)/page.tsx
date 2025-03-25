@@ -1,11 +1,5 @@
-import ThemeToggle from "@/components/ThemeToggle";
-
 const Home = () => {
-  return (
-    <div className="">
-      <ThemeToggle />
-    </div>
-  );
+  return <div className=""></div>;
 };
 
 export default Home;
