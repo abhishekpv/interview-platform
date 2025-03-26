@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 type SwitchAuthProps = {
-  isSignIn: Boolean;
+  isSignIn: boolean;
 };
 const SwitchAuth = ({ isSignIn }: SwitchAuthProps) => {
   return (

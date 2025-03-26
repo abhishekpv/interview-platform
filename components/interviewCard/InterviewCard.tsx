@@ -7,7 +7,6 @@ import DisplayTechIcons from "./DisplayTechIcons";
 import DateRating from "./DateRating";
 const InterviewCard = ({
   techstack,
-  userId,
   createdAt,
   role,
   type,
