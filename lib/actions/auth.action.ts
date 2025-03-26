@@ -46,6 +46,7 @@ export const signUp = async ({ email, name, uid }: SignUpParams) => {
 
 export const signIn = async ({ email, idToken }: SignInParams) => {
   try {
+    //get user record from db
     const userRecord = await auth.getUserByEmail(email);
     if (!userRecord) {
       return {
@@ -53,6 +54,7 @@ export const signIn = async ({ email, idToken }: SignInParams) => {
         message: "User does not exist. Create an account instead.",
       };
     }
+    //set session cookie
     await setSessionCookie(idToken);
   } catch (error) {
     console.error("Error loggin in: ", error);
@@ -70,6 +72,7 @@ export const setSessionCookie = async (idToken: string) => {
     expiresIn: FIVE_DAYS * 1000,
   });
 
+  //set cookie using next cookie
   cookieStore.set("session", sessionCookie, {
     maxAge: FIVE_DAYS,
     httpOnly: true,
@@ -79,6 +82,7 @@ export const setSessionCookie = async (idToken: string) => {
   });
 };
 
+//get user from session cookie
 export const getCurrentUser = async (): Promise<User | null> => {
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get("session")?.value;
@@ -86,6 +90,7 @@ export const getCurrentUser = async (): Promise<User | null> => {
     return null;
   }
   try {
+    //get uid from the session cookie
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
     const userRecord = await db
       .collection("users")
@@ -108,4 +113,6 @@ export const getCurrentUser = async (): Promise<User | null> => {
 
 export const isAuthenticated = async () => {
   const user = await getCurrentUser();
+
+  return !!user;
 };
