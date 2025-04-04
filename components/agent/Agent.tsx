@@ -67,7 +67,7 @@ const Agent = ({
 
   const handleGenerateFeedback = async (messages: SavedMessage[]) => {
     //TODO: Implement feedback generation logic
-    const { success, feedbackId  } = await createFeedback({
+    const { success, feedbackId } = await createFeedback({
       interviewId: interviewId!,
       userId: userId!,
       transcript: messages,
