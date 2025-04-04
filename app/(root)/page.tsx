@@ -1,10 +1,10 @@
 import HeroCard from "@/components/HeroCard";
 import InterviewCard from "@/components/interviewCard/InterviewCard";
+import { getCurrentUser } from "@/lib/actions/auth.action";
 import {
-  getCurrentUser,
   getInterviewByUserId,
   getLatestInterviews,
-} from "@/lib/actions/auth.action";
+} from "@/lib/actions/general.action";
 
 const Home = async () => {
   const user = await getCurrentUser();
