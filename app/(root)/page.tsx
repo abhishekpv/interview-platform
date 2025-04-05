@@ -26,7 +26,13 @@ const Home = async () => {
         <div className="interviews-section">
           {hasPastInterviews ? (
             userInterviews.map((interview) => {
-              return <InterviewCard key={interview.id} {...interview} />;
+              return (
+                <InterviewCard
+                  key={interview.id}
+                  {...interview}
+                  userId={user?.id}
+                />
+              );
             })
           ) : (
             <p>You haven&apos;t taken any interviews yet</p>
@@ -38,7 +44,13 @@ const Home = async () => {
         <div className="interviews-section">
           {hasUpcomingInterviews ? (
             latestInterviews.map((interview) => {
-              return <InterviewCard key={interview.id} {...interview} />;
+              return (
+                <InterviewCard
+                  key={interview.id}
+                  {...interview}
+                  userId={user?.id}
+                />
+              );
             })
           ) : (
             <p>There are no new interviews available</p>
