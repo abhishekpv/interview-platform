@@ -8,7 +8,6 @@ type AuthLayoutProps = {
 
 const AuthLayout = async ({ children }: AuthLayoutProps) => {
   const isUserAuthenticated = await isAuthenticated();
-  console.log("authauth", isUserAuthenticated);
 
   if (isUserAuthenticated) {
     redirect("/");

@@ -37,7 +37,7 @@ export const getInterviewById = async (
   id: string
 ): Promise<Interview | null> => {
   const interview = await db.collection("interviews").doc(id).get();
-  return interview.data() as Interview | null;
+  return { id: interview.id, ...interview.data() } as Interview | null;
 };
 
 export const createFeedback = async (params: CreateFeedbackParams) => {
@@ -99,4 +99,26 @@ export const createFeedback = async (params: CreateFeedbackParams) => {
       success: false,
     };
   }
+};
+
+export const getFeedbackByInterviewId = async (
+  params: GetFeedbackByInterviewIdParams
+): Promise<Feedback | null> => {
+  const { interviewId, userId } = params;
+  const feedback = await db
+    .collection("feedbacks")
+    .where("interviewId", "==", interviewId)
+    .where("userId", "==", userId)
+    .limit(1)
+    .get();
+
+  if (feedback.empty) {
+    return null;
+  }
+
+  const feedbackDoc = feedback.docs[0];
+  return {
+    id: feedbackDoc.id,
+    ...feedbackDoc.data(),
+  } as Feedback;
 };
